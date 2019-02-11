@@ -112,7 +112,7 @@ const readPostFromDatabase = () => {
     let month = currentDate.getMonth().toString()
     let year = currentDate.getFullYear()
     
-    readPost((coment)=>{            
+    readPost((coment)=>{         
         newcoments.innerHTML = 
       `          
       <div class='row' id= ${coment.key}>  
