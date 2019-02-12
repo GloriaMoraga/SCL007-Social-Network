@@ -33,27 +33,27 @@ export const enviarConvalidacionAFirebase =(imageUrl,uid,username,title,body,pos
   var updates = {};
   updates['/posts/' + newPostKey] = postData;
   updates['/users/' + uid + '/post/' + newPostKey] = postData;
-
   return firebase.database().ref().update(updates);
 }
 
 export const readPost = (onpostChange) => {
   let postRef = firebase.database().ref('posts');
   postRef.on('child_added',(coment)=> {
+    
     onpostChange(coment);
   });
 };
 
-// export const deletePost = (deletePost1, key) => {
-//   console.log(key);
-//   var userID = deletePost1.target.getAttribute("userpp");   //userid="${coment.key}"
-//   var firebaseref = firebase.database().ref('posts/'+ key);
-//   firebaseref.remove().then(function(){
-//     //alert("hola");
-//   }).catch(function(error){
-//     console.log("remove failed: " + error.message)
-//   })
-// }
+export const deletePost = (postdelete) => {
+  //console.log(key);
+  var postID = postdelete.target.getAttribute("userpp");   
+  var firebaseref = firebase.database().ref('posts/'+ postID);
+  firebaseref.remove().then(function(){
+    location.reload();
+  }).catch(function(error){
+    console.log("remove failed: " + error.message)
+  })
+}
 
 export const guardandoComentarios =(key, contenido, author)=>{
   // Crear nuevo post
@@ -71,8 +71,77 @@ export const guardandoComentarios =(key, contenido, author)=>{
   updates['/posts/' + key + '/coment/' + newPostKey] = postcoment;
  // updates['/users/' + uid + '/post/' + key + '/comment/' + newPostKey] = postcoment;
 
+ 
   return firebase.database().ref().update(updates);
 }
+
+export const biography = (uid,contenido)=>{
+
+ firebase.database().ref('users/'+uid).update({
+            biografía: contenido            
+            
+        })
+    }
+         
+
+
+  // segundo intento like
+export const likePost = (id) => { 
+
+      console.log('running likePost() for post ID:', id);
+      
+      let postRef = firebase.database().ref('posts/'+ id);
+      
+      // get current number of likes here, so we can increment if any exist
+      postRef.child('like-count').once('value', function(snapshot){
+          
+          console.log( 'snapshot.val():', snapshot.val() );
+          
+          var currentLikes = snapshot.val() ? snapshot.val() : 0;
+          
+          console.log( 'currentLikes:', currentLikes );
+      
+          postRef.update({
+              
+              'postID': id,
+              'like-count': currentLikes + 1
+              
+              }, function(error) {
+                  
+                if (error) {
+                    
+                  console.log('Data could not be saved:' + error);
+                
+                } else {
+                
+                  console.log('Data saved successfully');
+                
+                }
+              
+              });
+              
+          getLikeCount(id);
+      
+      });
+      
+  }
+
+  // primer intento like
+    // export const likePost = (newPostKey) => {
+    //   let userID = firebase.auth().currentUser.uid;
+    //   let postRef = firebase.database().ref(`posts`);
+    
+    //   postRef.once("value", function (snapshot) {
+    
+    //     let like = snapshot.child(newPostKey).child("likes").child(userID).val();
+    
+    //     if (like === null) {
+    //       postRef.child(newPostKey).child("likes").child(userID).set(1)
+    //     } else {
+    //       postRef.child(newPostKey).child("likes").child(userID).remove();
+    //     }
+    //   });
+    // }
 
 
 // export const deletePost = () => {
@@ -95,3 +164,4 @@ export const guardandoComentarios =(key, contenido, author)=>{
 //   // })
 
 // };
+
