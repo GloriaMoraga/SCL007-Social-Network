@@ -1,7 +1,7 @@
 # Creando una Red Social
 
 ## Definición del producto 
-
+[links](http://soyunlink.cl)
 **Happy With Allergies** es una red social que invita a todos las personas que sufren algún tipo de alergia alimentaria (o que tienen un familiar y/o amigo con este tipo de alergias) a compartir sus datos, recetas, información de locales o incluso solo conocer gente en su misma condición. 
 
 ## Investigación
@@ -17,7 +17,7 @@ Se realizó una encuesta a todas aquellas personas que tuvieran algún cercano c
     * ALERGIA A LA PROTEÍNA DE LECHE DE VACA
     * ALERGIA AL GLUTEN
 
-![Gráfico resultados encuesta pregunta 1](src/IMG/Encuestapreg1.png)
+![Gráfico resultados encuesta pregunta 1](http://src/IMG/Encuestapreg1.png)
 
 2. **La información más importante que necesitan estas personas** : 
 
