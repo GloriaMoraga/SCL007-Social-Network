@@ -35,7 +35,7 @@ export const enviarConvalidacionAFirebase =(imageUrl,uid,username,title,body,pos
   }
 
   // Llave que identifica el nuevo post
-  var newPostKey = firebase.database().ref().child('posts').push().key;
+  var newPostKey = firebase.database().ref().child('/posts/').push().key;
 
   // Ingresa el post en publico y en su perfil.
   var updates = {};
